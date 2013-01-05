@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
 from collections import defaultdict
-
+import pprint
 
 # define some segments per Dresher chp.2 (2)
 
 p = dict(name="p", voiced=False, nasal=False)
 b = dict(name="b", voiced=True, nasal=False)
 m = dict(name="m", voiced=True, nasal=True)
+
+segments_by_name = {segment["name"]: segment for segment in [p, b, m]}
 
 
 def pairwise_algorithm(segments):
@@ -39,5 +41,33 @@ def pairwise_algorithm(segments):
     
     return contrastive_features
 
+pp = pprint.PrettyPrinter(indent=2)
 
-print(pairwise_algorithm([p, b, m]))
+
+pp.pprint(pairwise_algorithm([p, b, m]))
+
+
+def partition(segments, feature):
+    values = defaultdict(set)
+    for segment in segments:
+        assert feature in segment
+        values[segment[feature]].add(segment["name"])
+    return values
+
+
+def successive_division_algorithm(segments, feature_order):
+    if not feature_order:
+        assert len(segments) == 1
+        return segments[0]["name"]
+    p = partition(segments, feature_order[0])
+    if len(p) == 1:
+        assert len(segments) == 1
+        return segments[0]["name"]
+    d = {}
+    for k, v in p.items():
+        d[(feature_order[0], k)] = successive_division_algorithm([segments_by_name[name] for name in v], feature_order[1:])
+    return d
+
+d = successive_division_algorithm([p, b, m], ["nasal", "voiced"])
+
+pp.pprint(d)
