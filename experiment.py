@@ -69,5 +69,8 @@ def successive_division_algorithm(segments, feature_order):
     return d
 
 d = successive_division_algorithm([p, b, m], ["nasal", "voiced"])
-
 pp.pprint(d)
+
+d = successive_division_algorithm([p, b, m], ["voiced", "nasal"])
+pp.pprint(d)
+
