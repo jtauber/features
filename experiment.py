@@ -56,6 +56,12 @@ def partition(segments, feature):
 
 
 def successive_division_algorithm(segments, feature_order):
+    """
+    successive division algorithm for finding the contrastive feature tree for
+    the given segments assuming the given feature order.
+    
+    based on (9) and fn3 in Dresher chp.2
+    """
     if not feature_order:
         assert len(segments) == 1
         return segments[0]["name"]
