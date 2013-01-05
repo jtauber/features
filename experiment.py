@@ -80,3 +80,29 @@ pp.pprint(d)
 d = successive_division_algorithm([p, b, m], ["voiced", "nasal"])
 pp.pprint(d)
 
+
+# example from (19)
+
+i = dict(name="i", high=True, low=False, back=False, round=False)
+e = dict(name="e", high=False, low=False, back=False, round=False)
+a = dict(name="a", high=False, low=True, back=True, round=False)
+o = dict(name="o", high=False, low=False, back=True, round=True)
+u = dict(name="u", high=True, low=False, back=True, round=True)
+
+pp.pprint(pairwise_algorithm([i, e, a, o, u]))
+
+# example from (20)
+
+i = dict(name="i", high=True, round=False)
+a = dict(name="a", high=False, round=False)
+u = dict(name="u", high=True, round=True)
+
+pp.pprint(pairwise_algorithm([i, a, u]))
+
+# example from (21)
+
+i = dict(name="i", high=True, back=False, round=False)
+a = dict(name="a", high=False, back=True, round=False)
+u = dict(name="u", high=True, back=True, round=True)
+
+pp.pprint(pairwise_algorithm([i, a, u]))
